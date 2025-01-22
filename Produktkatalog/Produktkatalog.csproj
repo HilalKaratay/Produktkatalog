@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resource\Dial.png" />
+    <None Remove="Resource\th.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resource\Dial.png" />
+    <Resource Include="Resource\th.jpg" />
+  </ItemGroup>
+
+</Project>
