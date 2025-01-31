@@ -2,8 +2,21 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Produktkatalog"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml"
+             xmlns:viewModel="clr-namespace:Produktkatalog.ViewModel"
+             xmlns:view="clr-namespace:Produktkatalog.View">
+    
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type viewModel:ProductTilesViewModel}">
+            <view:ProductTilesView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:DetailProductViewModel}">
+            <view:DetailProductView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:AddProductViewModel}">
+            <view:AddProductView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
