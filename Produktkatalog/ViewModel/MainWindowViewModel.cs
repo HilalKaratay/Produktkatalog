@@ -10,7 +10,7 @@ namespace Produktkatalog.ViewModel {
  class MainWindowViewModel : ViewModelBase
     {
 
-        string saveFile = @"C:\Users\it.praktikant1\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
+        string saveFile = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
         private string _logoPath;
         private ProductTilesViewModel _productTilesViewModel;
         private AddProductViewModel _addProductViewModel;
@@ -70,6 +70,7 @@ namespace Produktkatalog.ViewModel {
 
             var dataLoader = new JsonDataLoader();
             var products = dataLoader.LoadProducts(saveFile);
+
             Products = new ObservableCollection<Product>(products);
 
             ActiveViewModel = ProductTilesView;

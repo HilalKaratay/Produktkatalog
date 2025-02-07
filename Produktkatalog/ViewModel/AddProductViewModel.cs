@@ -12,7 +12,7 @@ namespace Produktkatalog.ViewModel
 {
     class AddProductViewModel : ViewModelBase
     {
-        string saveFile = @"C:\Users\it.praktikant1\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
+        string saveFile = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
 
         public ICommand _addProductCommand { get; set; }
         public ICommand _executeProductCommand { get; set; }
@@ -175,8 +175,8 @@ namespace Produktkatalog.ViewModel
                 Performance = _newProductPerformance,
                 ColorRenderingIndex = _newProductColorRenderingIndex,
                 MoreInformation = _newProductInformation,
-                /* BildURL = _newProductBildURL,
-                 BildURL2 = _newProductBildURL2,*/
+                BildURL = _newProductBildURL,
+                BildURL2 = _newProductBildURL2
             };
             //If-Anweisung um festzusetzen, dass der Nutzer alle Textfelder ausgefüllt hat!
             if (string.IsNullOrWhiteSpace(_newProductProductName) || string.IsNullOrWhiteSpace(_newProductProductfamiliy) || string.IsNullOrWhiteSpace(_newProductApplicationPlace) || string.IsNullOrWhiteSpace(_newProductInstallation) ||
@@ -184,11 +184,9 @@ namespace Produktkatalog.ViewModel
                 string.IsNullOrWhiteSpace(_newProductAdjustability) || string.IsNullOrWhiteSpace(_newProductLumFlux) || string.IsNullOrWhiteSpace(_newProductPerformance) || string.IsNullOrWhiteSpace(_newProductColorRenderingIndex) ||
                 string.IsNullOrWhiteSpace(_newProductInformation))
             {
-
                 MessageBox.Show("Bitte füllen Sie alle Felder aus, um das Produkt zu speichern.");
                 return;
             }
-
 
             Products.Add(product);
 
@@ -226,43 +224,6 @@ namespace Produktkatalog.ViewModel
                 NewProductBildURL2 = openFileDialog.FileName;
             }
         }
-
-
-        private void Speichern()
-        {
-            // Überprüfen, ob der Bildpfad existiert
-            if (!File.Exists(NewProductBildURL) && !File.Exists(NewProductBildURL2))
-            {
-                MessageBox.Show("Es ist ein Fehler aufgetreten");
-                return ;
-            }
-
-            var daten = new Product
-            {
-                ProductName = _newProductProductName,
-                ProductFamily = _newProductProductfamiliy,
-                ApplicationPlace = _newProductApplicationPlace,
-                Installation = _newProductInstallation,
-                MountingType = _newProductMountingType,
-                ProductDimension = _newProductProductDimension,
-                Form = _newProductForm,
-                Adjustability = _newProductAdjustability,
-                LumFlux = _newProductLumFlux,
-                Performance = _newProductPerformance,
-                ColorRenderingIndex = _newProductColorRenderingIndex,
-                MoreInformation = _newProductInformation,
-                BildURL = _newProductBildURL,
-                BildURL2 = _newProductBildURL2,
-            };
-
-            // JSON serialisieren
-            string json = JsonConvert.SerializeObject(daten, Formatting.Indented);
-
-            // Zielpfad für die JSON-Datei
-            string dateipfad = @"C:\Pfad\zur\datei.json"; // Beispielpfad anpassen
-            File.WriteAllText(dateipfad, json);
-        }
-
 
         public AddProductViewModel(ObservableCollection<Product> productsAsParameter)
         {
