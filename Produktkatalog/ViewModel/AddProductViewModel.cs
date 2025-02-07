@@ -17,8 +17,12 @@ namespace Produktkatalog.ViewModel
         public ICommand _addProductCommand { get; set; }
         public ICommand _executeProductCommand { get; set; }
         public ICommand _addPictureOneCommand { get; }
-        public ICommand _addPictureTwoCommand {  get; }
- 
+        public ICommand _addPictureTwoCommand { get; }
+        public ICommand AddPictureOneCommand { get; }
+
+        public ICommand AddPictureTwoCommand { get; }
+
+
         public RelayCommand ProductAddCommand { get;  }
         public string _newProductProductName { get; set; }
         public string _newProductProductfamiliy { get; set; }
@@ -126,10 +130,6 @@ namespace Produktkatalog.ViewModel
             set { _products = value; OnPropertyChanged(nameof(Products)); }
         }
 
-        public ICommand AddPictureOneCommand { get; }
-       
-        public ICommand AddPictureTwoCommand { get; }
-        
 
         public ICommand AddProductCommand
         {

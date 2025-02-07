@@ -18,11 +18,11 @@
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="80"/>
                     </Grid.RowDefinitions>
-                    <Button Content="X" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.OnDeleteProductCommand}" CommandParameter="{Binding Path= ProductId}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="6" HorizontalContentAlignment="Center" Height="10" Width="12" Margin="8 8"/>
+                    <Button Content="X" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.OnDeleteProductCommand}" CommandParameter="{Binding ProductId}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="6" HorizontalContentAlignment="Center" Height="10" Width="12" Margin="8 8"/>
                     <Image Grid.Row="0" Height="100" Width="200" Source="{Binding BildURL}" />
                     <Grid Grid.Row="1" >
                         <Label Content="{Binding ProductName}" HorizontalAlignment="Center" FontSize="13"  Width="210" Padding="Auto" HorizontalContentAlignment="Center"/>
-                        <Label Content="{Binding ProductName}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="11" Width="190" Padding="Auto" HorizontalContentAlignment="Center" />
+                        <Label Content="{Binding ProductDimension}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="11" Width="190" Padding="Auto" HorizontalContentAlignment="Center" />
 
                     </Grid>
                     <Grid Grid.Row="2" Height="40" Width="200">
