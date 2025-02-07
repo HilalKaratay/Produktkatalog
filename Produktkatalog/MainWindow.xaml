@@ -7,27 +7,27 @@
         xmlns:viewModel="clr-namespace:Produktkatalog.ViewModel"
         xmlns:view="clr-namespace:Produktkatalog.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="850">
+        Title="MainWindow" Height="650" Width="850">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="75"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
         <!--Head-->
         <Image Source="{Binding LogoPath}" Grid.Row="0" Width="200" Height="30" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBox Grid.Row="0" Text="Suchen" Height="20" Width="180" HorizontalAlignment="right" Background="LightGray" Margin="10 10"/>
+        <TextBox Grid.Row="0" Text="Suchen" Height="20" Width="180" HorizontalAlignment="right" VerticalAlignment="Top" Background="LightGray" Margin="0 20 10 0" BorderBrush="Black"/>
 
-        <Button Grid.Row="0" Command="{Binding AddProductViewCommand}" Content="Hinzufügen" Height="20" Width="100" HorizontalAlignment="Right" Margin="0 0 220 0">
+        <Button Grid.Row="0" Command="{Binding AddProductViewCommand}" Content="Hinzufügen" Height="20" Width="100" HorizontalAlignment="Right" Margin="0 55 20 0">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="3"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Grid.Row="0" Command="{Binding ProductTilesViewCommand}" Content="Produktansicht" Height="20" Width="100" HorizontalAlignment="Right" Margin="0 0 350 0">
+        <Button Grid.Row="0" Command="{Binding ProductTilesViewCommand}" Content="Produktansicht" Height="20" Width="100" HorizontalAlignment="Right" Margin="0 55 150 0">
         <Button.Resources>
             <Style TargetType="Border">
                 <Setter Property="CornerRadius" Value="3"/>
@@ -36,7 +36,7 @@
         </Button>
 
         <!--Expander for the Filters of the Products-->
-        <Expander x:Name="Expander" Grid.Row="1" Header="Filter Optionen" Background="White" IsExpanded="False">
+        <Expander x:Name="Expander" Grid.Row="1" Header="Filter"  Background="White" IsExpanded="False">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -74,7 +74,7 @@
         </Expander>
 
        <!--  <view:ProductTilesView Grid.Row="2"/>-->
-        <ContentControl  Grid.Row="2" Content="{Binding ActiveViewModel}">
+        <ContentControl Grid.Row="2" Content="{Binding ActiveViewModel}">
             <ContentControl.Resources>
                 <ResourceDictionary Source="Resources/MainWindowResources.xaml"/>
             </ContentControl.Resources>

@@ -5,14 +5,21 @@ using Produktkatalog.Command;
 using Produktkatalog.Model;
 using Produktkatalog.Store;
 using Newtonsoft.Json;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Produktkatalog.ViewModel
 {
-    class AddProductViewModel: ViewModelBase
+    class AddProductViewModel : ViewModelBase
     {
-        private ICommand _addProductCommand { get; set; }
-        public RelayCommand ProductAddCommand {  get; }
-        private ICommand _deleteProductCommand { get; }
+        string saveFile = @"C:\Users\it.praktikant1\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
+
+        public ICommand _addProductCommand { get; set; }
+        public ICommand _executeProductCommand { get; set; }
+        public ICommand _addPictureOneCommand { get; }
+        public ICommand _addPictureTwoCommand {  get; }
+ 
+        public RelayCommand ProductAddCommand { get;  }
         public string _newProductProductName { get; set; }
         public string _newProductProductfamiliy { get; set; }
         public string _newProductApplicationPlace { get; set; }
@@ -28,11 +35,15 @@ namespace Produktkatalog.ViewModel
         public string _newProductInformation { get; set; }
         public string _newProductBildURL { get; set; }
         public string _newProductBildURL2 { get; set; }
+        public static ObservableCollection<Product> _products { get; set; }
+        private MainWindowViewModel _mainWindowViewModel { get; set; }
 
-        public ObservableCollection<Product> _products { get; set; }
 
-        public Product _selectedProduct;
-
+        public MainWindowViewModel MainWindowViewModel
+        {
+            get { return _mainWindowViewModel; }
+            set { _mainWindowViewModel = value; OnPropertyChanged(nameof(MainWindowViewModel)); }
+        }
         public string NewProductProductname
         {
             get { return _newProductProductName; }
@@ -58,7 +69,6 @@ namespace Produktkatalog.ViewModel
             get { return _newProductMountingType; }
             set { _newProductMountingType = value; OnPropertyChanged(nameof(NewProductMountingType)); }
         }
-
         public string NewProductProductDimension
         {
             get { return _newProductProductDimension; }
@@ -116,36 +126,29 @@ namespace Produktkatalog.ViewModel
             set { _products = value; OnPropertyChanged(nameof(Products)); }
         }
 
-         public Product SelectedProduct
-        {
-            get { return _selectedProduct; }
-            set { _selectedProduct = value; OnPropertyChanged(nameof(SelectedProduct));}
-        }
-
-      /*
-        public RelayCommand ProductAddCommand
-        {
-            get { return _productaddCommand; }
-            set { _productaddCommand = value; OnPropertyChanged(nameof(ProductAddCommand)); }
-        } */
+        public ICommand AddPictureOneCommand { get; }
+       
+        public ICommand AddPictureTwoCommand { get; }
         
+
         public ICommand AddProductCommand
         {
             get => _addProductCommand ?? new RelayCommand(_ => InvokeChange());
             set { _addProductCommand = value; OnPropertyChanged(nameof(AddProductCommand)); }
         }
 
-        public ICommand DeleteProductCommand
+        public ICommand ExecuteProductCommand
         {
-            get => _deleteProductCommand ?? new RelayCommand(_ => InvokeChange());
+            get => _executeProductCommand ?? new RelayCommand(_ => InvokeChange());
+            set { _executeProductCommand = value; OnPropertyChanged(nameof(ExecuteProductCommand)); }
         }
 
         public event Action ChangeWindow;
+
         public void InvokeChange()
         {
             ChangeWindow?.Invoke();
         }
-
 
 
         //Funktionen für das hinzufügen eines neuen Produkts
@@ -159,7 +162,7 @@ namespace Produktkatalog.ViewModel
 
             var product = new Product
             {
-               // ProductId = productId,
+                ProductId = productId,
                 ProductName = _newProductProductName,
                 ProductFamily = _newProductProductfamiliy,
                 ApplicationPlace = _newProductApplicationPlace,
@@ -172,42 +175,106 @@ namespace Produktkatalog.ViewModel
                 Performance = _newProductPerformance,
                 ColorRenderingIndex = _newProductColorRenderingIndex,
                 MoreInformation = _newProductInformation,
-               /* BildURL = _newProductBildURL,
-                BildURL2 = _newProductBildURL2,*/
+                /* BildURL = _newProductBildURL,
+                 BildURL2 = _newProductBildURL2,*/
             };
             //If-Anweisung um festzusetzen, dass der Nutzer alle Textfelder ausgefüllt hat!
             if (string.IsNullOrWhiteSpace(_newProductProductName) || string.IsNullOrWhiteSpace(_newProductProductfamiliy) || string.IsNullOrWhiteSpace(_newProductApplicationPlace) || string.IsNullOrWhiteSpace(_newProductInstallation) ||
                 string.IsNullOrWhiteSpace(_newProductMountingType) || string.IsNullOrWhiteSpace(_newProductMountingType) || string.IsNullOrWhiteSpace(_newProductProductDimension) || string.IsNullOrWhiteSpace(_newProductForm) ||
                 string.IsNullOrWhiteSpace(_newProductAdjustability) || string.IsNullOrWhiteSpace(_newProductLumFlux) || string.IsNullOrWhiteSpace(_newProductPerformance) || string.IsNullOrWhiteSpace(_newProductColorRenderingIndex) ||
-                string.IsNullOrWhiteSpace(_newProductInformation)){
+                string.IsNullOrWhiteSpace(_newProductInformation))
+            {
 
-                MessageBox.Show("Bitte füllen Sie alle Felder aus.");
+                MessageBox.Show("Bitte füllen Sie alle Felder aus, um das Produkt zu speichern.");
                 return;
             }
 
+
             Products.Add(product);
-           // string jsonString = JsonConvert.SerializeObject(product);
+
+            JsonSerializer jsonSerializer = new JsonSerializer();
+
+            // Stream zum speichern in eine Datei
+            using (StreamWriter sw = File.CreateText(saveFile)) 
+            {
+                jsonSerializer.Serialize(sw, _products);
+            }
+        }
+
+        private void AddingPictureOne()
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Bilder (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                NewProductBildURL = openFileDialog.FileName;
+            }
+        }
+
+        private void AddingPictureTwo()
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Bilder (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                NewProductBildURL2 = openFileDialog.FileName;
+            }
         }
 
 
-
-        //Bearbeiten eines Produktes
-        public void ChangeProductInformations()
+        private void Speichern()
         {
+            // Überprüfen, ob der Bildpfad existiert
+            if (!File.Exists(NewProductBildURL) && !File.Exists(NewProductBildURL2))
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten");
+                return ;
+            }
+
+            var daten = new Product
+            {
+                ProductName = _newProductProductName,
+                ProductFamily = _newProductProductfamiliy,
+                ApplicationPlace = _newProductApplicationPlace,
+                Installation = _newProductInstallation,
+                MountingType = _newProductMountingType,
+                ProductDimension = _newProductProductDimension,
+                Form = _newProductForm,
+                Adjustability = _newProductAdjustability,
+                LumFlux = _newProductLumFlux,
+                Performance = _newProductPerformance,
+                ColorRenderingIndex = _newProductColorRenderingIndex,
+                MoreInformation = _newProductInformation,
+                BildURL = _newProductBildURL,
+                BildURL2 = _newProductBildURL2,
+            };
+
+            // JSON serialisieren
+            string json = JsonConvert.SerializeObject(daten, Formatting.Indented);
+
+            // Zielpfad für die JSON-Datei
+            string dateipfad = @"C:\Pfad\zur\datei.json"; // Beispielpfad anpassen
+            File.WriteAllText(dateipfad, json);
         }
 
-        public AddProductViewModel()
+
+        public AddProductViewModel(ObservableCollection<Product> productsAsParameter)
         {
-            /*Products = new ObservableCollection<Product>
-             {
-                 new Product { ProductName="Test 1", ProductFamily="Test 1", ApplicationPlace="Test 1", Installation="Test 1", MountingType="Test 1", ProductDimension="Test 1", Form="Test 1", Adjustability="Test 1",
-                 LumFlux="Test 1", Performance="Test 1", ColorRenderingIndex="Test 1", MoreInformation="Test 1", BildURL="Test 1", BildURL2="Test 1"}
-             };*/
-            
-            Products = new ObservableCollection<Product>();
+            AddPictureOneCommand = new RelayCommand(param=> { AddingPictureOne(); });
+            AddPictureTwoCommand = new RelayCommand(param => { AddingPictureTwo(); });
+
             ProductAddCommand = new RelayCommand(param => { AddProduct();});
             AddProductCommand = new RelayCommand(_ => InvokeChange());
-
+            ExecuteProductCommand = new RelayCommand(_ => InvokeChange()); 
+            _products = productsAsParameter;
+            ProductTilesViewModel newProduct = new ProductTilesViewModel(Products);
+          
         }
     }
 }

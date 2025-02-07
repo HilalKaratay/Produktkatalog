@@ -8,26 +8,51 @@
              xmlns:view="clr-namespace:Produktkatalog.View"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <DataTemplate x:Key="ProductDataTemplate" >
+            <Border Margin="15" Background="WhiteSmoke" CornerRadius="10" BorderThickness="0.8" BorderBrush="Black">
+            <Grid Height="250" >                
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+                    <Button Content="X" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.OnDeleteProductCommand}" CommandParameter="{Binding Path= ProductId}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="6" HorizontalContentAlignment="Center" Height="10" Width="12" Margin="8 8"/>
+                    <Image Grid.Row="0" Height="100" Width="200"/>
+                    <Grid Grid.Row="1" >
+                        <Label Content="{Binding ProductName}" HorizontalAlignment="Center" FontSize="13"  Width="210" Padding="Auto" HorizontalContentAlignment="Center"/>
+                        <Label Content="{Binding ProductName}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="11" Width="190" Padding="Auto" HorizontalContentAlignment="Center" />
 
-
-    <UserControl.DataContext>
-        <local:AddProductViewModel/>
-    </UserControl.DataContext>
+                    </Grid>
+                    <Grid Grid.Row="2" Height="40" Width="200">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="{Binding ApplicationPlace}" FontSize="10" HorizontalContentAlignment="Center" Padding="Auto" />
+                        <Label Grid.Column="0" Content="{Binding LumFlux}" FontSize="10" HorizontalContentAlignment="Center" VerticalAlignment="Bottom"/>
+                        <Label Grid.Column="1" Content="{Binding LightYield}" FontSize="10"  HorizontalAlignment="Center"  Padding="Auto" Margin="0 1"/>
+                        <Label Grid.Column="1" Content="{Binding Performance}" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 1"/>
+                    </Grid>                
+            </Grid>  
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <DataGrid Height="375" Width="650" ItemsSource="{Binding Products}" AutoGenerateColumns="True" IsReadOnly="True" Grid.Column="2" Grid.Row="2" ColumnWidth="Auto" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ProductName}"/>
-                <DataGridTextColumn Binding="{Binding ProductDimension}"/>
-                <DataGridTextColumn Binding ="{Binding Performance}"/>
-                <DataGridTextColumn Binding ="{Binding LumFlux}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
+        <ListView ItemsSource="{Binding }"
+                  Name="ProductTileListView"
+                  ItemTemplate="{StaticResource ProductDataTemplate}" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  SelectedItem="{Binding SelectedProduct}"
+                  d:ItemsSource="{d:SampleData ItemCount=5}">            
+                <ListView.ItemsPanel>                    
+                <ItemsPanelTemplate>                  
+                    <WrapPanel/>                  
+                </ItemsPanelTemplate>                    
+            </ListView.ItemsPanel>          
+        </ListView>
     </Grid>
 </UserControl>

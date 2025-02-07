@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Produktkatalog.Model;
 using Produktkatalog.Store;
 using Produktkatalog.View;
 using Produktkatalog.ViewModel;
@@ -11,8 +12,6 @@ namespace Produktkatalog
         {
             DataContext = new MainWindowViewModel();
             InitializeComponent();
-         
         }
-
     }
 }

@@ -32,6 +32,7 @@ namespace Produktkatalog.ViewModel
             _canExecute = canExecute;
         }
 
+        
 
 
         #region ICommand Members
