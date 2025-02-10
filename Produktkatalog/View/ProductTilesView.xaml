@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Produktkatalog.ViewModel"
              xmlns:viewModel="clr-namespace:Produktkatalog.ViewModel"
-             xmlns:view="clr-namespace:Produktkatalog.View"
+             xmlns:view="clr-namespace:Produktkatalog.View" xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
     
@@ -41,18 +41,17 @@
     </UserControl.Resources>
 
     <Grid>
-        <ListView ItemsSource="{Binding }"
-                  Name="ProductTileListView"
+        <ListView x:Name="ProductTileListView"
                   ItemTemplate="{StaticResource ProductDataTemplate}" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   SelectedItem="{Binding SelectedProduct}"
-                  d:ItemsSource="{d:SampleData ItemCount=5}">            
-                <ListView.ItemsPanel>                    
-                <ItemsPanelTemplate>                  
-                    <WrapPanel/>                  
-                </ItemsPanelTemplate>                    
-            </ListView.ItemsPanel>          
+                  d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
         </ListView>
     </Grid>
 </UserControl>

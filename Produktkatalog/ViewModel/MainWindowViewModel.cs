@@ -67,14 +67,13 @@ namespace Produktkatalog.ViewModel {
         public MainWindowViewModel()
         {
             LogoPath = @"..\Resources\Dial.png";
-
+            ActiveViewModel = ProductTilesView;
+           
             var dataLoader = new JsonDataLoader();
             var products = dataLoader.LoadProducts(saveFile);
 
             Products = new ObservableCollection<Product>(products);
-
-            ActiveViewModel = ProductTilesView;
-           
+            
             ProductTilesView = new ProductTilesViewModel(Products);
             AddProductView = new AddProductViewModel(Products);
             DetailProductView = new DetailProductViewModel(Products);
@@ -82,7 +81,7 @@ namespace Produktkatalog.ViewModel {
             ProductTilesView.ChangeWindow += GotToProductDetails;
             AddProductView.ChangeWindow += GotToProductTiles;
             DetailProductView.ChangeWindow += GotToProductTiles;
-
+            ProductTilesView.LoadProducts();
         }
 
         public void GotToProductTiles()

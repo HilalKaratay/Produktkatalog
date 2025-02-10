@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Produktkatalog.Model;
@@ -15,5 +16,7 @@ namespace Produktkatalog.View
             this.DataContext = AddProductViewModel._products;
             ProductTileListView.ItemsSource = AddProductViewModel._products;
         }
+
+
     }
 }

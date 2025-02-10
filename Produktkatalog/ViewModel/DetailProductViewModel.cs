@@ -36,8 +36,6 @@ namespace Produktkatalog.ViewModel
             set { _selectedProduct = value; OnPropertyChanged(nameof(SelectedProduct)); }
         }
 
-
-
         private ICommand _productTilesView;
         public ICommand ProductTilesViewComand
         {

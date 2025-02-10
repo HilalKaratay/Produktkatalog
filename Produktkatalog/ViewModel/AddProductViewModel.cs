@@ -13,16 +13,14 @@ namespace Produktkatalog.ViewModel
     class AddProductViewModel : ViewModelBase
     {
         string saveFile = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
-
         public ICommand _addProductCommand { get; set; }
         public ICommand _executeProductCommand { get; set; }
         public ICommand _addPictureOneCommand { get; }
         public ICommand _addPictureTwoCommand { get; }
         public ICommand AddPictureOneCommand { get; }
-
         public ICommand AddPictureTwoCommand { get; }
-
-
+        public static ObservableCollection<Product> _products { get; set; }
+        private MainWindowViewModel _mainWindowViewModel { get; set; }
         public RelayCommand ProductAddCommand { get;  }
         public string _newProductProductName { get; set; }
         public string _newProductProductfamiliy { get; set; }
@@ -39,9 +37,6 @@ namespace Produktkatalog.ViewModel
         public string _newProductInformation { get; set; }
         public string _newProductBildURL { get; set; }
         public string _newProductBildURL2 { get; set; }
-        public static ObservableCollection<Product> _products { get; set; }
-        private MainWindowViewModel _mainWindowViewModel { get; set; }
-
 
         public MainWindowViewModel MainWindowViewModel
         {
@@ -123,33 +118,27 @@ namespace Produktkatalog.ViewModel
             get { return _newProductBildURL2; }
             set { _newProductBildURL2 = value; OnPropertyChanged(nameof(NewProductBildURL2)); }
         }
-
         public ObservableCollection<Product> Products
         {
             get { return _products; }
             set { _products = value; OnPropertyChanged(nameof(Products)); }
         }
-
-
         public ICommand AddProductCommand
         {
             get => _addProductCommand ?? new RelayCommand(_ => InvokeChange());
             set { _addProductCommand = value; OnPropertyChanged(nameof(AddProductCommand)); }
         }
-
         public ICommand ExecuteProductCommand
         {
             get => _executeProductCommand ?? new RelayCommand(_ => InvokeChange());
             set { _executeProductCommand = value; OnPropertyChanged(nameof(ExecuteProductCommand)); }
         }
-
         public event Action ChangeWindow;
 
         public void InvokeChange()
         {
             ChangeWindow?.Invoke();
         }
-
 
         //Funktionen für das hinzufügen eines neuen Produkts
         public void AddProduct()

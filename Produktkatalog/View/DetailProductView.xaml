@@ -7,8 +7,8 @@
       xmlns:viewModel="clr-namespace:Produktkatalog.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
-   
-    
+
+
     <Grid Background="White">
 
         <Grid.ColumnDefinitions>
@@ -23,13 +23,15 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
+                <Image Grid.Row="0" Margin="10"  Source="{Binding SelectedProduct.BildURL}" />
                 <!-- Fill Picture1 here-->
                 <!--<Image Source="Resource/Dial.png"/> -->
             </Grid>
 
             <Grid Grid.Row="1">
+                <Image Grid.Row="0" Margin="10" Source="{Binding SelectedProduct.BildURL2}" />
                 <!-- Fill Picture2 here-->
-               <!--  <Image Source="Resource/Dial.png"/>-->
+                <!--  <Image Source="Resource/Dial.png"/>-->
             </Grid>
         </Grid>
 
@@ -64,10 +66,13 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
+            <Button Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" />
+            <Button Content="Bearbeiten" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 35 15"/>
             <StackPanel Grid.Column="0" Margin="0 50">
                 <StackPanel Orientation="Horizontal">
                     <Label  Content="Produktname:" Width="100"/>
-                    <TextBlock  Text="{Binding SelectedProduct.ProductName}" Margin ="20 3 0 0" Width="140" /> <!--ACHTUNG ÄNDERN BITTE-->
+                    <TextBlock  Text="{Binding SelectedProduct.ProductName}" Margin ="20 3 0 0" Width="140"/>
+                    <!--ACHTUNG ÄNDERN BITTE-->
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Produktfamilie:" Width="100" />

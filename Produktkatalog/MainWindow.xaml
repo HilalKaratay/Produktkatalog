@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:Produktkatalog.ViewModel"
         xmlns:view="clr-namespace:Produktkatalog.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="850">
+        Title="MainWindow" Height="650" Width="830">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -47,8 +47,8 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <Button Content="Produktfamilie" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
-                    <Button Content="Lampentyp" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
+                    <ComboBox Name="Produktfamilie"  Text="Produktfamilie" ItemsSource="{Binding ProductFamily }" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
+                    <ComboBox Name="Lampentyp" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
                     <Button Content="Lichtfarbe" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
                 </StackPanel>
 

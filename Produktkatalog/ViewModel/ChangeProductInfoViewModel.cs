@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Produktkatalog.ViewModel
 {
-    class ChangeProductInfoViewModel
+    class ChangeProductInfoViewModel : ViewModelBase
     {
+
     }
 }

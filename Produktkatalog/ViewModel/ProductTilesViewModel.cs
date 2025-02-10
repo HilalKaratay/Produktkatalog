@@ -11,25 +11,27 @@ namespace Produktkatalog.ViewModel
 {
     class ProductTilesViewModel : ViewModelBase
     {
-        public AddProductViewModel _addProductViewModel;
+        
         public DetailProductViewModel _detailpProductViewModel;
         private Product _selectedProduct;
 
         private const string JsonFilePath = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
-
         public ObservableCollection<Product> newProductTile { get; set; }
+
+
         public Product SelectedProduct
         {
             get { return _selectedProduct; }
-            set { _selectedProduct = value; OnPropertyChanged(nameof(SelectedProduct)); }
-        }
+            set
+            {
+                if (_selectedProduct != value)
+                {
+                    _selectedProduct = value;
+                    OnPropertyChanged(nameof(SelectedProduct));
+                }
+            }
 
-        public AddProductViewModel AddProductViewModel
-        {
-            get { return _addProductViewModel; }
-            set {_addProductViewModel = value; OnPropertyChanged(nameof(AddProductViewModel));}
         }
-
         public DetailProductViewModel DetailProductViewModel
         {
             get { return _detailpProductViewModel; }
@@ -43,13 +45,13 @@ namespace Produktkatalog.ViewModel
             set { _detailViewCommand = value; OnPropertyChanged(nameof(DetailViewCommand)); }
         }
 
-        public ICommand OnDeleteProductCommand { get; set; }
-       
-       /* public ICommand OnDeleteProductCommand 
+        public ICommand _onDeleteProductCommand { get; set; }
+
+        public ICommand OnDeleteProductCommand
         {
-            get { return _onDeleteProductCommand;  }
+            get { return _onDeleteProductCommand; }
             set { _onDeleteProductCommand = value; OnPropertyChanged(nameof(OnDeleteProductCommand)); }
-        }*/
+        }
 
         public event Action ChangeWindow;
         public void InvokeChange()
@@ -66,7 +68,7 @@ namespace Produktkatalog.ViewModel
         }
 
 
-        private void LoadProducts()
+        public void LoadProducts()
         {
             if (File.Exists(JsonFilePath))
             {
@@ -81,16 +83,17 @@ namespace Produktkatalog.ViewModel
         }
 
 
-
-
         public void DeleteProduct(int id)
         {
-
-           var productT newProductTile.Remove(newProductTile.FirstOrDefault(p => p.ProductId == id));
+            var product = newProductTile.Remove(newProductTile.FirstOrDefault(p => p.ProductId == id));
             MessageBox.Show("Produkt wurde von der Liste entfernt!");
 
             SaveJsonProducts();
         }
+
+
+      
+
 
         private void SaveJsonProducts()
         {
@@ -101,13 +104,11 @@ namespace Produktkatalog.ViewModel
         public ProductTilesViewModel(ObservableCollection<Product> newProductsAsParameter)
         {
             LoadProducts();
-            DetailViewCommand = new RelayCommand(_ => InvokeChange());
+            DetailViewCommand = new RelayCommand(_ => GoToDetailView());
             newProductTile = newProductsAsParameter;
             //Funktion zum löschen aus der ListView funkt aber nicht :)
             OnDeleteProductCommand = new RelayCommand(param => { DeleteProduct((int)param); });
         }
-  
-
     }
 }
     
