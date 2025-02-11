@@ -133,6 +133,7 @@ namespace Produktkatalog.ViewModel
             get => _executeProductCommand ?? new RelayCommand(_ => InvokeChange());
             set { _executeProductCommand = value; OnPropertyChanged(nameof(ExecuteProductCommand)); }
         }
+
         public event Action ChangeWindow;
 
         public void InvokeChange()

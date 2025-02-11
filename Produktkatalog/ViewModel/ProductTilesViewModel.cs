@@ -31,6 +31,7 @@ namespace Produktkatalog.ViewModel
                 }
             }
 
+
         }
         public DetailProductViewModel DetailProductViewModel
         {
@@ -62,12 +63,7 @@ namespace Produktkatalog.ViewModel
         {
             ChangeWindow?.Invoke();
         }
-        public void GoBackAndSave()
-        {
-            ChangeWindow?.Invoke();
-        }
-
-
+     
         public void LoadProducts()
         {
             if (File.Exists(JsonFilePath))
@@ -89,11 +85,8 @@ namespace Produktkatalog.ViewModel
             MessageBox.Show("Produkt wurde von der Liste entfernt!");
 
             SaveJsonProducts();
+            LoadProducts(); 
         }
-
-
-      
-
 
         private void SaveJsonProducts()
         {
@@ -101,12 +94,17 @@ namespace Produktkatalog.ViewModel
             File.WriteAllText(JsonFilePath, newJsonDoc);
         }
 
+        public void DoubleClickMethod()
+        {
+            GoToDetailView();
+        }
+
+
         public ProductTilesViewModel(ObservableCollection<Product> newProductsAsParameter)
         {
             LoadProducts();
             DetailViewCommand = new RelayCommand(_ => GoToDetailView());
             newProductTile = newProductsAsParameter;
-            //Funktion zum löschen aus der ListView funkt aber nicht :)
             OnDeleteProductCommand = new RelayCommand(param => { DeleteProduct((int)param); });
         }
     }

@@ -38,57 +38,57 @@
             <StackPanel Grid.Column="0" Margin="80 20 0 10">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Produktname:" Width="100"/>
-                    <TextBox Text="{Binding NewProductProductname}" Name="ProductName" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding ProductName}" Name="ProductName" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Produktfamilie:" Width="100" />
-                    <TextBox Text="{Binding NewProductProductfamiliy}" Name="ProductFamily" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding ProductFamily}" Name="ProductFamily" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Einsatzbereiche:" Width="100"/>
-                    <TextBox Text="{Binding NewProductApplicationPlace}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding ApplicationPlace}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Montageort:" Width="100"/>
-                    <TextBox Text="{Binding NewProductInstallation}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding Installation}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Montageart:" Width="100"/>
-                    <TextBox Text="{Binding NewProductMountingType}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding MountingType}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Abmessungen:" Width="100"/>
-                    <TextBox Text="{Binding NewProductProductDimension}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding ProductDimension}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Form:" Width="100"/>
-                    <TextBox Text="{Binding NewProductForm}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding Form}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Verstellbarkeit:" Width="100"/>
-                    <TextBox Text="{Binding NewProductAdjustability}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding Adjustability}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Lichtstrom:" Width="100"/>
-                    <TextBox Text="{Binding NewProductLumFlux}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding LumFlux}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Leistung:" Width="100"/>
-                    <TextBox Text="{Binding NewProductPerformance}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding Performance}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Lichtausbeute:" Width="100"/>
-                    <TextBox Text="{Binding NewProductLightYield}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding LightYield}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Farbwiedergabe:" Width="100"/>
-                    <TextBox Text="{Binding NewProductColorRenderingIndex}" Margin ="0 3 0 0" Width="370" />
+                    <TextBox Text="{Binding ColorRenderingIndex}" Margin ="0 3 0 0" Width="370" />
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Column="2">
                 <Label Content="Weiter Informationen:" Margin=" 21 0"/>
-                <TextBox Text="{Binding NewProductInformation}" Height="200" Width="200" AcceptsReturn="True" TextWrapping="Wrap"/>
+                <TextBox Text="{Binding MoreInformation}" Height="200" Width="200" AcceptsReturn="True" TextWrapping="Wrap"/>
             </StackPanel>
 
             <Button Grid.Column ="2" Command="{Binding UpdateProductCommand}" Content="Aktualisieren"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 30 20" />

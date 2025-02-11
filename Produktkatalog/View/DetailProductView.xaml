@@ -4,8 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"           
       xmlns:local="clr-namespace:Produktkatalog.ViewModel"
-      xmlns:viewModel="clr-namespace:Produktkatalog.ViewModel"
-      mc:Ignorable="d" 
+      xmlns:viewModel="clr-namespace:Produktkatalog.ViewModel" d:DataContext="{d:DesignInstance Type=local:DetailProductViewModel}"
+             mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
 
@@ -23,40 +23,36 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Image Grid.Row="0" Margin="10"  Source="{Binding SelectedProduct.BildURL}" />
+                <Image Grid.Row="0" Margin="10"  Source="{Binding BildURL}" />
                 <!-- Fill Picture1 here-->
                 <!--<Image Source="Resource/Dial.png"/> -->
             </Grid>
 
             <Grid Grid.Row="1">
-                <Image Grid.Row="0" Margin="10" Source="{Binding SelectedProduct.BildURL2}" />
+                <Image Grid.Row="0" Margin="10" Source="{Binding BildURL2}" />
                 <!-- Fill Picture2 here-->
                 <!--  <Image Source="Resource/Dial.png"/>-->
             </Grid>
         </Grid>
 
-        <Grid Grid.Column="1" Margin="0 20 0 0" Height="450" VerticalAlignment="Top">
+        <Grid Grid.Column="1" Height="440" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="20"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Height="20">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" x:Name="ProductName"/>
+            <Grid Grid.Row="0" Height="25">
+                <TextBlock Text="{Binding ProductName}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" x:Name="ProductName"/>
             </Grid>
 
-            <Grid Grid.Row="1" Height="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="157*"/>
-                    <ColumnDefinition Width="110*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="10" Name="x" Margin="133,0,0,0"/>
+            <Grid Grid.Row="1" Height="20">                
+                <TextBlock Text="{Binding ProductDimension}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="10" x:Name="ProductDimension" />
             </Grid>
 
-            <StackPanel Grid.Row="2" Height="330" VerticalAlignment="Top">
+            <StackPanel Grid.Row="2" Margin="0 32" VerticalAlignment="Top">
                 <Label Content="Produktinformationen:" Margin="35 0"/>
-                <TextBlock Text="{Binding SelectedProduct.Information}" Height="300" Width="250"/>
+                <TextBlock Text="{Binding MoreInformation}" Height="285" Width="250" TextWrapping="Wrap"/>
             </StackPanel>
         </Grid>
 
@@ -67,56 +63,51 @@
             </Grid.ColumnDefinitions>
 
             <Button Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" />
-            <Button Content="Bearbeiten" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 35 15"/>
-            <StackPanel Grid.Column="0" Margin="0 50">
-                <StackPanel Orientation="Horizontal">
-                    <Label  Content="Produktname:" Width="100"/>
-                    <TextBlock  Text="{Binding SelectedProduct.ProductName}" Margin ="20 3 0 0" Width="140"/>
-                    <!--ACHTUNG ÄNDERN BITTE-->
-                </StackPanel>
+            <Button Content="Bearbeiten" Command="{Binding ChangeProductInfoViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 35 15"/>
+            <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 0 55">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Produktfamilie:" Width="100" />
-                    <TextBlock Text="{Binding SelectedProduct.Productfamiliy}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding ProductFamily}"  Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Einsatzbereiche:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.ApplicationPlace}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding ApplicationPlace}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Montageort:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.Installation}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding Installation}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Montageart:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.MountingType}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding MountingType}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Abmessungen:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.ProductDimension}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding ProductDimension}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Form:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.Form}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding Form}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Verstellbarkeit:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.Adjustability}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding Adjustability}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Lichtstrom:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.ProductLumFlux}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding LumFlux}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Leistung:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.Performance}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding Performance}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Lichtausbeute:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.LightYield}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding LightYield}" Width="160" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Farbwiedergabei.:" Width="100"/>
-                    <TextBlock Text="{Binding SelectedProduct.ColorRenderingIndex}" Margin ="20 3 0 0" Width="140" />
+                    <TextBlock Text="{Binding ColorRenderingIndex}" Width="160" />
                 </StackPanel>
             </StackPanel>
         </Grid>
