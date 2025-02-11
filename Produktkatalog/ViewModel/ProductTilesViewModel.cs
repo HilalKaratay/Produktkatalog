@@ -11,41 +11,29 @@ namespace Produktkatalog.ViewModel
 {
     class ProductTilesViewModel : ViewModelBase
     {
+        public ObservableCollection<Product> newProductTile { get; set; } = new();
         
-        public DetailProductViewModel _detailpProductViewModel;
-        private Product _selectedProduct;
-
         private const string JsonFilePath = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
-        public ObservableCollection<Product> newProductTile { get; set; }
 
-
+        private Product _selectedProduct;
         public Product SelectedProduct
         {
-            get { return _selectedProduct; }
+            get => _selectedProduct; 
             set
-            {
-                if (_selectedProduct != value)
-                {
-                    _selectedProduct = value;
-                    OnPropertyChanged(nameof(SelectedProduct));
-                }
+            {       _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+                //MainWindowViewModel.Instance.ActiveViewModel = "DetailProductViewModel";
             }
-
-
         }
-        public DetailProductViewModel DetailProductViewModel
+        public void SelectProduct(object parameter)
         {
-            get { return _detailpProductViewModel; }
-            set{_detailpProductViewModel = value; OnPropertyChanged(nameof(DetailProductViewModel));}
+            if(parameter is Product product)
+            {
+                SelectedProduct = product;
+                GoToDetailView();
+            }
         }
-
-        public ICommand _detailViewCommand { get; set; }
-        public ICommand DetailViewCommand
-        {
-            get => _detailViewCommand ?? new RelayCommand(_ => InvokeChange());
-            set { _detailViewCommand = value; OnPropertyChanged(nameof(DetailViewCommand)); }
-        }
-
+       
         public ICommand _onDeleteProductCommand { get; set; }
 
         public ICommand OnDeleteProductCommand
@@ -63,7 +51,12 @@ namespace Produktkatalog.ViewModel
         {
             ChangeWindow?.Invoke();
         }
-     
+        public void DoubleClickMethod()
+        {
+            GoToDetailView();
+        }
+
+
         public void LoadProducts()
         {
             if (File.Exists(JsonFilePath))
@@ -78,34 +71,29 @@ namespace Produktkatalog.ViewModel
             }
         }
 
-
-        public void DeleteProduct(int id)
+        public void DeleteProduct()
         {
-            var product = newProductTile.Remove(newProductTile.FirstOrDefault(p => p.ProductId == id));
+            if (SelectedProduct != null)
+            {
+                newProductTile.Remove(SelectedProduct);
+                SaveJsonProducts();
+            }
+            //var product = newProductTile.Remove(newProductTile.FirstOrDefault(p => p.ProductId == id));
             MessageBox.Show("Produkt wurde von der Liste entfernt!");
 
-            SaveJsonProducts();
             LoadProducts(); 
         }
-
         private void SaveJsonProducts()
         {
             string newJsonDoc = JsonConvert.SerializeObject(newProductTile);
             File.WriteAllText(JsonFilePath, newJsonDoc);
         }
-
-        public void DoubleClickMethod()
-        {
-            GoToDetailView();
-        }
-
-
+     
         public ProductTilesViewModel(ObservableCollection<Product> newProductsAsParameter)
         {
             LoadProducts();
-            DetailViewCommand = new RelayCommand(_ => GoToDetailView());
             newProductTile = newProductsAsParameter;
-            OnDeleteProductCommand = new RelayCommand(param => { DeleteProduct((int)param); });
+            OnDeleteProductCommand = new RelayCommand(param => { DeleteProduct(); });
         }
     }
 }

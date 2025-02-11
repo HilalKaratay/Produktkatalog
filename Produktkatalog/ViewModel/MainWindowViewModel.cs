@@ -17,13 +17,14 @@ namespace Produktkatalog.ViewModel {
         private DetailProductViewModel _detailProductViewModel;
         private ViewModelBase _activeViewModel;
         private ChangeProductInfoViewModel _changeProductInfoViewModel;
-        public ObservableCollection<Product> _products; 
+        public  ObservableCollection<Product> _products; 
         private ICommand _productTilesViewCommand { get; }
         private ICommand _addProductViewCommand { get; }
 
-        private ICommand _changeProductInfoViewCommand { get; }
-        private ICommand _detailViewCommand { get; }
-       
+        private static MainWindowViewModel _instance;
+
+        public static MainWindowViewModel Instance => _instance ??= new MainWindowViewModel();
+
         public ObservableCollection<Product> Products
         {
             get { return _products; }
@@ -49,7 +50,6 @@ namespace Produktkatalog.ViewModel {
         {
                 get { return _changeProductInfoViewModel; }
                 set { _changeProductInfoViewModel = value; RaisePropertyChanged(nameof(ChangeProductInfoView)); }
-
         }
 
         public ViewModelBase ActiveViewModel
@@ -69,11 +69,9 @@ namespace Produktkatalog.ViewModel {
         }
         public ICommand AddProductViewCommand
         {
-            get => _productTilesViewCommand ?? new RelayCommand(_ => GotToAddProduct());
+            get => _addProductViewCommand ?? new RelayCommand(_ => GotToAddProduct());
         }
       
-
-
         public MainWindowViewModel()
         {
             LogoPath = @"..\Resources\Dial.png";
@@ -93,8 +91,8 @@ namespace Produktkatalog.ViewModel {
 
             ProductTilesView.ChangeWindow += GotToProductDetails;
             AddProductView.ChangeWindow += GotToProductTiles;
-          //  DetailProductView.ChangeWindow += GotToProductTiles;
-            DetailProductView.ChangeWindow += GoToChangeProduktInfo;
+            DetailProductView.ChangeWindow += GotToProductTiles;
+            //DetailProductView.ChangeWindow += GoToChangeProduktInfo;
             ChangeProductInfoView.ChangeWindow += GotToProductTiles;
 
         }

@@ -10,13 +10,10 @@ namespace Produktkatalog.View
     /// </summary>
     public partial class DetailProductView : UserControl
     {
-       
-        // NavigationStore navigationStore = new NavigationStore();
         public  DetailProductView()
         { 
             InitializeComponent();
             this.DataContext = AddProductViewModel._products;
-           
         }
     }
 }

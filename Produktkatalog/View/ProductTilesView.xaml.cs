@@ -14,7 +14,5 @@ namespace Produktkatalog.View
             InitializeComponent();
             ProductTileListView.ItemsSource = AddProductViewModel._products;
         }
-
-       
     }
 }

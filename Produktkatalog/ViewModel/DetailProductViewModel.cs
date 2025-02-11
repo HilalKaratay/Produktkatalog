@@ -7,6 +7,10 @@ namespace Produktkatalog.ViewModel
    class DetailProductViewModel: ViewModelBase
     {
         public ObservableCollection<Product> newProductTile { get; }
+      
+        private ProductTilesViewModel _productTilesViewModel;
+
+        //public Product Product => _productTilesViewModel.SelectedProduct;
 
         private AddProductViewModel _addProductViewModel;
         public AddProductViewModel AddProductView
@@ -14,9 +18,8 @@ namespace Produktkatalog.ViewModel
             get { return _addProductViewModel; }
             set { _addProductViewModel = value; RaisePropertyChanged(nameof(AddProductView)); }
         }
-        
-        private ProductTilesViewModel _productTilesViewModel;
-        public ProductTilesViewModel ProductTilesView
+  
+        /*public ProductTilesViewModel ProductTilesView
         {
             get { return _productTilesViewModel; }
             set { _productTilesViewModel = value; RaisePropertyChanged(nameof(ProductTilesView)); }
@@ -27,12 +30,13 @@ namespace Produktkatalog.ViewModel
         {
             get { return _selectedProduct; }
             set { _selectedProduct = value; OnPropertyChanged(nameof(SelectedProduct)); }
-        }
+        }*/
 
-        private ICommand _productTilesView;
-        public ICommand ProductTilesViewComand
+        public ICommand _executeProductCommand { get; set; }
+        public ICommand ExecuteProductCommand
         {
-            get => _productTilesView ?? new RelayCommand(_ => InvokeChange());
+            get => _executeProductCommand ?? new RelayCommand(_ => InvokeChange());
+            set { _executeProductCommand = value; OnPropertyChanged(nameof(ExecuteProductCommand)); }
         }
 
         private ICommand _changeProductInfoViewCommand;
@@ -50,7 +54,8 @@ namespace Produktkatalog.ViewModel
 
         public DetailProductViewModel(ObservableCollection<Product> newProductsAsParameter)
         {
-            newProductTile = newProductsAsParameter;
+            //newProductTile = newProductsAsParameter;
+            ExecuteProductCommand = new RelayCommand(_ => InvokeChange()); 
         }
     }
 }
