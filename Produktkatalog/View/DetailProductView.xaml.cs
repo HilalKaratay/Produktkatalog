@@ -11,9 +11,8 @@ namespace Produktkatalog.View
     public partial class DetailProductView : UserControl
     {
         public  DetailProductView()
-        { 
+        {
             InitializeComponent();
-            this.DataContext = AddProductViewModel._products;
         }
     }
 }

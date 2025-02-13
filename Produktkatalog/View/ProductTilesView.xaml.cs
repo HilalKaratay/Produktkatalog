@@ -1,8 +1,4 @@
-﻿
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using Produktkatalog.Model;
+﻿using System.Windows.Controls;
 using Produktkatalog.ViewModel;
 
 namespace Produktkatalog.View
@@ -12,7 +8,6 @@ namespace Produktkatalog.View
         public ProductTilesView()
         {
             InitializeComponent();
-            ProductTileListView.ItemsSource = AddProductViewModel._products;
         }
     }
 }

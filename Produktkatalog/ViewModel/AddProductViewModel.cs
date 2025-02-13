@@ -10,10 +10,13 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Produktkatalog.ViewModel
 {
-    class AddProductViewModel : ViewModelBase
+   public class AddProductViewModel : ViewModelBase
     {
         string saveFile = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
+
+       
         public ICommand _addProductCommand { get; set; }
+        
         public ICommand _executeProductCommand { get; set; }
         public ICommand _addPictureOneCommand { get; }
         public ICommand _addPictureTwoCommand { get; }
@@ -135,11 +138,10 @@ namespace Produktkatalog.ViewModel
         }
 
         public event Action ChangeWindow;
-
         public void InvokeChange()
         {
             ChangeWindow?.Invoke();
-        }
+        } 
 
         //Funktionen für das hinzufügen eines neuen Produkts
         public void AddProduct()

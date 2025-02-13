@@ -11,8 +11,13 @@
         <view:DetailProductView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type viewModel:ChangeProductInfoViewModel}">
+        <view:ChangeProductInfoView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type viewModel:AddProductViewModel}">
         <view:AddProductView/>
     </DataTemplate>
-  
+
+
 </ResourceDictionary>

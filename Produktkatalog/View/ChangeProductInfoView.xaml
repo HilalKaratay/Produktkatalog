@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Produktkatalog.View" xmlns:viewmodel="clr-namespace:Produktkatalog.ViewModel"
-             d:DataContext="{d:DesignInstance Type=viewmodel:AddProductViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
 
@@ -23,7 +21,7 @@
 
                 <Button Grid.Column="0" Margin="35 10 4 2"  Background="LightGray" BorderBrush="Black" Content="Hinzufügen Bild 1" Command="{Binding AddPictureOneCommand}"/>
                 <Button Grid.Column="1" Margin="4 10 35 2" Background="LightGray" BorderBrush="Black" Content="Hinzufügen Bild 2" Command="{Binding AddPictureOneCommand}"/>
-                <Button   Command="{Binding ExecuteProductCommand}" Grid.Column="1" Height="18" Width="18" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="10 10" Content="X" Background="White"/>
+                <Button   Command="{Binding BackToDetailProductCommand}" Grid.Column="1" Height="18" Width="18" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="10 10" Content="X" Background="White"/>
             </Grid>
 
 

@@ -2,40 +2,63 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Produktkatalog.Model;
 
 namespace Produktkatalog.ViewModel
 {
-    class ProductTilesViewModel : ViewModelBase
+    public class ProductTilesViewModel : ViewModelBase
     {
-        public ObservableCollection<Product> newProductTile { get; set; } = new();
-        
+        public ObservableCollection<Product> newProductTile { get; set; }
         private const string JsonFilePath = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
+        public ObservableCollection<Product> NewProductTile
+        {
+            get { return newProductTile; }
+            set
+            {
+                newProductTile = value;
+                OnPropertyChanged(nameof(NewProductTile));
+            }
+        }
+
+        public ICommand DetailViewCommand { get; set; }
+
+        /*  public ICommand DetailViewCommand
+          {
+              get => _detailViewCommand ?? new RelayCommand(_ => InvokeChange());
+              set
+              {
+                  _detailViewCommand = value; OnPropertyChanged(nameof(DetailViewCommand));
+              }
+          }*/
+
+        private void OpenDetailView(Product produkt)
+        {
+            if (produkt != null)
+            {
+                InvokeChange();
+                
+            }
+        }
+
 
         private Product _selectedProduct;
         public Product SelectedProduct
         {
-            get => _selectedProduct; 
+            get => _selectedProduct;
             set
-            {       _selectedProduct = value;
-                OnPropertyChanged(nameof(SelectedProduct));
-                //MainWindowViewModel.Instance.ActiveViewModel = "DetailProductViewModel";
-            }
-        }
-        public void SelectProduct(object parameter)
-        {
-            if(parameter is Product product)
             {
-                SelectedProduct = product;
-                GoToDetailView();
+                _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+                new RelayCommand(_ => InvokeChange());
+                SetProperty(ref _selectedProduct, value);
+              
             }
         }
-       
-        public ICommand _onDeleteProductCommand { get; set; }
 
+        public ICommand _onDeleteProductCommand { get; set; }
         public ICommand OnDeleteProductCommand
         {
             get { return _onDeleteProductCommand; }
@@ -47,16 +70,7 @@ namespace Produktkatalog.ViewModel
         {
             ChangeWindow?.Invoke();
         }
-        public void GoToDetailView()
-        {
-            ChangeWindow?.Invoke();
-        }
-        public void DoubleClickMethod()
-        {
-            GoToDetailView();
-        }
-
-
+       
         public void LoadProducts()
         {
             if (File.Exists(JsonFilePath))
@@ -71,29 +85,28 @@ namespace Produktkatalog.ViewModel
             }
         }
 
-        public void DeleteProduct()
+        public void DeleteProduct(int id)
         {
-            if (SelectedProduct != null)
-            {
-                newProductTile.Remove(SelectedProduct);
-                SaveJsonProducts();
-            }
-            //var product = newProductTile.Remove(newProductTile.FirstOrDefault(p => p.ProductId == id));
-            MessageBox.Show("Produkt wurde von der Liste entfernt!");
-
-            LoadProducts(); 
+            var product = newProductTile.Remove(newProductTile.FirstOrDefault(p => p.ProductId == id));
+            
+            SaveJsonProducts();
+            MessageBox.Show("Produkt wurde aus der Liste entfernt!");
         }
         private void SaveJsonProducts()
         {
             string newJsonDoc = JsonConvert.SerializeObject(newProductTile);
             File.WriteAllText(JsonFilePath, newJsonDoc);
         }
-     
+
         public ProductTilesViewModel(ObservableCollection<Product> newProductsAsParameter)
-        {
-            LoadProducts();
+        {           
             newProductTile = newProductsAsParameter;
-            OnDeleteProductCommand = new RelayCommand(param => { DeleteProduct(); });
+            OnDeleteProductCommand = new RelayCommand(param => { DeleteProduct((int)param); });
+            //DetailViewCommand = new RelayCommand(param => {InvokeChange();});
+            LoadProducts();
+            //DetailViewCommand = new RelayCommand(_ => InvokeChange());
+            DetailViewCommand = new RelayCommandTwo<Product>(OpenDetailView);
+
         }
     }
 }

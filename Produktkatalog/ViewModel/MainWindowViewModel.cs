@@ -1,29 +1,36 @@
 ﻿using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Windows.Input;
 using Produktkatalog.Model;
-using Newtonsoft.Json;
-using System.IO;
-using System.Text.Json;
 using Produktkatalog.Store;
-using Produktkatalog.View;
 
 namespace Produktkatalog.ViewModel {
- class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel : ViewModelBase
     {
         string saveFile = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
         private string _logoPath;
-        private ProductTilesViewModel _productTilesViewModel;
+        private ProductTilesViewModel _productTilesViewModel { get; set; }
         private AddProductViewModel _addProductViewModel;
         private DetailProductViewModel _detailProductViewModel;
         private ViewModelBase _activeViewModel;
         private ChangeProductInfoViewModel _changeProductInfoViewModel;
-        public  ObservableCollection<Product> _products; 
+
+        public ObservableCollection<Product> _products; 
         private ICommand _productTilesViewCommand { get; }
         private ICommand _addProductViewCommand { get; }
 
-        private static MainWindowViewModel _instance;
+        private Product _selectedProduct;
+        public Product SelectedProduct
+        {
+            get => _selectedProduct;
+            set
+            {
+                _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+                
+            }
+        }
 
-        public static MainWindowViewModel Instance => _instance ??= new MainWindowViewModel();
 
         public ObservableCollection<Product> Products
         {
@@ -45,19 +52,16 @@ namespace Produktkatalog.ViewModel {
             get { return _addProductViewModel; }
             set { _addProductViewModel = value; RaisePropertyChanged(nameof(AddProductView)); }
         }
-
         public ChangeProductInfoViewModel ChangeProductInfoView
         {
                 get { return _changeProductInfoViewModel; }
                 set { _changeProductInfoViewModel = value; RaisePropertyChanged(nameof(ChangeProductInfoView)); }
         }
-
         public ViewModelBase ActiveViewModel
         {
             get { return _activeViewModel; }
             set { _activeViewModel = value; RaisePropertyChanged(nameof(ActiveViewModel)); }
         }
-
         public string LogoPath
         {
             get { return _logoPath; } 
@@ -71,12 +75,9 @@ namespace Produktkatalog.ViewModel {
         {
             get => _addProductViewCommand ?? new RelayCommand(_ => GotToAddProduct());
         }
-      
         public MainWindowViewModel()
         {
             LogoPath = @"..\Resources\Dial.png";
-            ActiveViewModel = ProductTilesView;
-           
             var dataLoader = new JsonDataLoader();
             var products = dataLoader.LoadProducts(saveFile);
 
@@ -85,16 +86,16 @@ namespace Produktkatalog.ViewModel {
             ChangeProductInfoView = new ChangeProductInfoViewModel(Products);
             ProductTilesView = new ProductTilesViewModel(Products);
             AddProductView = new AddProductViewModel(Products);
-            DetailProductView = new DetailProductViewModel(Products);
+            DetailProductView = new DetailProductViewModel(SelectedProduct);
 
-            ProductTilesView.LoadProducts();
-
-            ProductTilesView.ChangeWindow += GotToProductDetails;
+            ProductTilesView.ChangeWindow += GoToProductDetails;
             AddProductView.ChangeWindow += GotToProductTiles;
             DetailProductView.ChangeWindow += GotToProductTiles;
-            //DetailProductView.ChangeWindow += GoToChangeProduktInfo;
-            ChangeProductInfoView.ChangeWindow += GotToProductTiles;
+            DetailProductView.ChangeProductInfo += GoToChangeProduktInfo;
+            ChangeProductInfoView.UpdateProductInfo += GoToProductDetails;
+            ChangeProductInfoView.ChangeWindow += GoToProductDetails;
 
+            ActiveViewModel = ProductTilesView;
         }
 
         public void GoToChangeProduktInfo()
@@ -107,7 +108,7 @@ namespace Produktkatalog.ViewModel {
             ActiveViewModel = ProductTilesView;
         }
       
-        public void GotToProductDetails()
+        public void GoToProductDetails()
         {
             ActiveViewModel = DetailProductView;
         }

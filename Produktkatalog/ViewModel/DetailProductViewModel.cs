@@ -1,61 +1,86 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
+using Newtonsoft.Json;
 using Produktkatalog.Model;
+
 
 namespace Produktkatalog.ViewModel
 {
-   class DetailProductViewModel: ViewModelBase
+   public class DetailProductViewModel: ViewModelBase
     {
-        public ObservableCollection<Product> newProductTile { get; }
-      
-        private ProductTilesViewModel _productTilesViewModel;
 
-        //public Product Product => _productTilesViewModel.SelectedProduct;
-
-        private AddProductViewModel _addProductViewModel;
-        public AddProductViewModel AddProductView
+        private const string JsonFilePath = @"C:\Users\murat\Desktop\Produktkatalog\Produktkatalog\Resources\Product.json";
+        private ObservableCollection<Product> newProductTile;
+        public ObservableCollection<Product> NewProductTile
         {
-            get { return _addProductViewModel; }
-            set { _addProductViewModel = value; RaisePropertyChanged(nameof(AddProductView)); }
-        }
-  
-        /*public ProductTilesViewModel ProductTilesView
-        {
-            get { return _productTilesViewModel; }
-            set { _productTilesViewModel = value; RaisePropertyChanged(nameof(ProductTilesView)); }
+            get { return newProductTile; }
+            set
+            {
+                newProductTile = value;
+                OnPropertyChanged(nameof(NewProductTile));
+            }
         }
 
-        private Product _selectedProduct;
-        public Product SelectedProduct
-        {
-            get { return _selectedProduct; }
-            set { _selectedProduct = value; OnPropertyChanged(nameof(SelectedProduct)); }
-        }*/
 
-        public ICommand _executeProductCommand { get; set; }
-        public ICommand ExecuteProductCommand
+        /*
+
+         public string titel;
+
+         public string Titel
+         {
+             get { return titel; }
+             set
+             {
+                 titel = value;
+                 OnPropertyChanged(nameof(Titel));
+             }
+
+         }
+
+         private Product _selectedProduct;
+         public Product SelectedProduct
+         {
+             get => _selectedProduct;
+             set
+             {
+                 SetProperty(ref _selectedProduct, value);
+                 //LoadProducts();
+             }
+         }*/
+
+        public ICommand _executeDetailProductCommand { get; set; }
+        public ICommand ExecuteDetailProductCommand
         {
-            get => _executeProductCommand ?? new RelayCommand(_ => InvokeChange());
-            set { _executeProductCommand = value; OnPropertyChanged(nameof(ExecuteProductCommand)); }
+            get => _executeDetailProductCommand ?? new RelayCommand(_ => InvokeChange());
+            set { _executeDetailProductCommand = value; OnPropertyChanged(nameof(ExecuteDetailProductCommand)); }
         }
 
-        private ICommand _changeProductInfoViewCommand;
+        private ICommand _changeProductInfoViewCommand { get; set; }
         public ICommand ChangeProductInfoViewCommand
         { 
-            get => _changeProductInfoViewCommand ?? new RelayCommand(_ => InvokeChange());
-
+            get => _changeProductInfoViewCommand ?? new RelayCommand(_ => ProductInfoNavigation());
+            set { _changeProductInfoViewCommand = value; OnPropertyChanged(nameof(ChangeProductInfoViewCommand)); }
         }
 
         public event Action ChangeWindow;
+
+        public event Action ChangeProductInfo;
+
+        public void ProductInfoNavigation()
+        {
+            ChangeProductInfo?.Invoke();
+        }
+
         public void InvokeChange()
         {
             ChangeWindow?.Invoke();
         }
 
-        public DetailProductViewModel(ObservableCollection<Product> newProductsAsParameter)
+        public DetailProductViewModel(Product newProductsAsParameter)
         {
-            //newProductTile = newProductsAsParameter;
-            ExecuteProductCommand = new RelayCommand(_ => InvokeChange()); 
+            ExecuteDetailProductCommand = new RelayCommand(_ => InvokeChange());
+            ChangeProductInfoViewCommand = new RelayCommand(_ => ProductInfoNavigation());
         }
     }
 }

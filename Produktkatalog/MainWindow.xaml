@@ -27,13 +27,13 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Grid.Row="0" Command="{Binding ProductTilesViewCommand}" Content="Produktansicht" Height="20" Width="100" HorizontalAlignment="Right" Margin="0 55 150 0">
+        <!--<Button Grid.Row="0" Command="{Binding ProductTilesViewCommand}" Content="Produktansicht" Height="20" Width="100" HorizontalAlignment="Right" Margin="0 55 150 0">
         <Button.Resources>
             <Style TargetType="Border">
                 <Setter Property="CornerRadius" Value="3"/>
             </Style>
         </Button.Resources>
-        </Button>
+        </Button>-->
 
         <!--Expander for the Filters of the Products-->
         <Expander x:Name="Expander" Grid.Row="1" Header="Filter"  Background="White" IsExpanded="False">
@@ -47,7 +47,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <ComboBox Name="Produktfamilie"  Text="Produktfamilie" ItemsSource="{Binding ProductFamily }" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
+                    <ComboBox Name="Produktfamilie"  Text="Produktfamilie"  Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
                     <ComboBox Name="Lampentyp" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
                     <Button Content="Lichtfarbe" Width="120" Height="20" HorizontalContentAlignment="Left" Margin="0 0 0 10"/>
                 </StackPanel>
