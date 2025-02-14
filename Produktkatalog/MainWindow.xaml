@@ -27,15 +27,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <!--<Button Grid.Row="0" Command="{Binding ProductTilesViewCommand}" Content="Produktansicht" Height="20" Width="100" HorizontalAlignment="Right" Margin="0 55 150 0">
-        <Button.Resources>
-            <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="3"/>
-            </Style>
-        </Button.Resources>
-        </Button>-->
-
-        <!--Expander for the Filters of the Products-->
+    
         <Expander x:Name="Expander" Grid.Row="1" Header="Filter"  Background="White" IsExpanded="False">
 
             <Grid>

@@ -14,10 +14,15 @@
         <DataTemplate x:Key="ProductDataTemplate">
             <Border Margin="15" Background="WhiteSmoke" CornerRadius="10" BorderThickness="0.8" BorderBrush="Black">
                 <Grid>
-                    <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Path=DataContext.DetailViewCommand}" 
-                            CommandParameter="{Binding}"/>
+                    <Button Margin="3" Background="WhiteSmoke"  Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Path=DataContext.DetailViewCommand}" 
+                            CommandParameter="{Binding}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <Grid Height="250">
-
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="35"/>
@@ -32,9 +37,9 @@
                             HorizontalContentAlignment="Center" 
                             FontSize="6"                             
                             Height="10" Width="12" Margin="8 8"/>
-                        <Image Grid.Row="0" Height="100" Width="200" Source="{Binding BildURL}" />
+                        <Image Grid.Row="0" Height="100" Width="180" Source="{Binding BildURL}" />
                         <Grid Grid.Row="1" >
-                            <Label Content="{Binding ProductName}" HorizontalAlignment="Center" FontSize="13"  Width="210" Padding="Auto" HorizontalContentAlignment="Center"/>
+                            <Label Content="{Binding ProductName}" HorizontalAlignment="Center" FontSize="13"  Width="180" Padding="Auto" HorizontalContentAlignment="Center"/>
                             <Label Content="{Binding ProductDimension}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="11" Width="190" Padding="Auto" HorizontalContentAlignment="Center" />
                         </Grid>
                         <Grid Grid.Row="2" Height="40" Width="200">
@@ -50,7 +55,6 @@
                     </Grid>
                 </Grid>
             </Border>
-
         </DataTemplate>
     </UserControl.Resources>
 
@@ -60,6 +64,7 @@
                   ItemTemplate="{StaticResource ProductDataTemplate}" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  SelectedItem="{Binding Path=SelectedProduct}"
                   d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

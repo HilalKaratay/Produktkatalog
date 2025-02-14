@@ -86,7 +86,7 @@ public class MainWindowViewModel : ViewModelBase
             ChangeProductInfoView = new ChangeProductInfoViewModel(Products);
             ProductTilesView = new ProductTilesViewModel(Products);
             AddProductView = new AddProductViewModel(Products);
-            DetailProductView = new DetailProductViewModel(SelectedProduct);
+            DetailProductView = new DetailProductViewModel(Products);
 
             ProductTilesView.ChangeWindow += GoToProductDetails;
             AddProductView.ChangeWindow += GotToProductTiles;

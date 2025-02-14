@@ -10,111 +10,103 @@
       d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid  Background="White" x:Name="DetailView">
-       
-            <Grid>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-    
-
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                    <Image Grid.Row="0" Margin="10"  Source="{Binding SelectedProduct.BildURL}" />
-                <!-- Fill Picture1 here-->
-                <!--<Image Source="Resource/Dial.png"/> -->
-            </Grid>
-
-            <Grid Grid.Row="1">
-                    <Image Grid.Row="0" Margin="10" Source="{Binding SelectedProduct.BildURL2}" />
-                <!-- Fill Picture2 here-->
-                <!--  <Image Source="Resource/Dial.png"/>-->
-            </Grid>
-        </Grid>
-
-        <Grid Grid.Column="1" Height="440" VerticalAlignment="Bottom">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0" Height="25">
-                    <TextBlock Text="{Binding SelectedProduct.ProductName}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" x:Name="ProductName"/>
-            </Grid>
-
-            <Grid Grid.Row="1" Height="20">
-                    <TextBlock Text="{Binding SelectedProduct.ProductDimension}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="10" x:Name="ProductDimension" />
-            </Grid>
-
-            <StackPanel Grid.Row="2" Margin="0 32" VerticalAlignment="Top">
-                <Label Content="Produktinformationen:" />
-                    <TextBlock Text="{Binding SelectedProduct.MoreInformation}" Height="285" Width="250" TextWrapping="Wrap"/>
-            </StackPanel>
-        </Grid>
-
-        <Grid Grid.Column="2">
+        <Grid>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="X" Command="{Binding ExecuteDetailProductCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" />
-            <Button Content="Bearbeiten" Command="{Binding ChangeProductInfoViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 35 15"/>
-            <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 0 55">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Produktfamilie:" Width="100" />
-                        <TextBlock Text="{Binding SelectedProduct.ProductFamily}"  Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Einsatzbereiche:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.ApplicationPlace}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Montageort:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.Installation}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Montageart:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.MountingType}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Abmessungen:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.ProductDimension}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Form:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.Form}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Verstellbarkeit:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.Adjustability}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Lichtstrom:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.LumFlux}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Leistung:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.Performance}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Lichtausbeute:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.LightYield}" Width="160" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Farbwiedergabei.:" Width="100"/>
-                        <TextBlock Text="{Binding SelectedProduct.ColorRenderingIndex}" Width="160" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Image Grid.Row="0" Margin="10"  Source="{Binding newProductTile.BildURL}" />
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Image Grid.Row="0" Margin="10" Source="{Binding newProductTile.BildURL2}" />
+                </Grid>
             </Grid>
 
+            <Grid Grid.Column="1" Height="440" VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Height="25">
+                    <TextBlock Text="{Binding SelectedProduct.ProductName}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="15" x:Name="ProductName"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Height="20">
+                    <TextBlock Text="{Binding SelectedProduct.ProductDimension}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="10" x:Name="ProductDimension" />
+                </Grid>
+
+                <StackPanel Grid.Row="2" Margin="0 32" VerticalAlignment="Top">
+                    <Label Content="Produktinformationen:" />
+                    <TextBlock Text="{Binding SelectedProduct.MoreInformation}" Height="285" Width="250" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="X" Command="{Binding ExecuteDetailProductCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" />
+                <Button Content="Bearbeiten" Command="{Binding ChangeProductInfoViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 35 15"/>
+                <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 0 55">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Produktfamilie:" Width="100" />
+                        <TextBlock Text="{Binding SelectedProduct.ProductFamily}"  Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Einsatzbereiche:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.ApplicationPlace}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Montageort:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.Installation}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Montageart:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.MountingType}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Abmessungen:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.ProductDimension}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Form:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.Form}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Verstellbarkeit:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.Adjustability}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Lichtstrom:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.LumFlux}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Leistung:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.Performance}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Lichtausbeute:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.LightYield}" Width="160" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Farbwiedergabei.:" Width="100"/>
+                        <TextBlock Text="{Binding SelectedProduct.ColorRenderingIndex}" Width="160" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

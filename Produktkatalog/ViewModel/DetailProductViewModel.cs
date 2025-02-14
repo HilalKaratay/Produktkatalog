@@ -22,33 +22,6 @@ namespace Produktkatalog.ViewModel
             }
         }
 
-
-        /*
-
-         public string titel;
-
-         public string Titel
-         {
-             get { return titel; }
-             set
-             {
-                 titel = value;
-                 OnPropertyChanged(nameof(Titel));
-             }
-
-         }
-
-         private Product _selectedProduct;
-         public Product SelectedProduct
-         {
-             get => _selectedProduct;
-             set
-             {
-                 SetProperty(ref _selectedProduct, value);
-                 //LoadProducts();
-             }
-         }*/
-
         public ICommand _executeDetailProductCommand { get; set; }
         public ICommand ExecuteDetailProductCommand
         {
@@ -77,7 +50,7 @@ namespace Produktkatalog.ViewModel
             ChangeWindow?.Invoke();
         }
 
-        public DetailProductViewModel(Product newProductsAsParameter)
+        public DetailProductViewModel(ObservableCollection<Product> newProductsAsParameter)
         {
             ExecuteDetailProductCommand = new RelayCommand(_ => InvokeChange());
             ChangeProductInfoViewCommand = new RelayCommand(_ => ProductInfoNavigation());

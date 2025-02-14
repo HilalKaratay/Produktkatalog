@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="Produktkatalog.View.TilesAndDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Produktkatalog.View"
+             xmlns:viewmodel="clr-namespace:Produktkatalog.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:ProductTilesViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="ProductTemplate" >
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Margin="0 0 5 3" Grid.Column="0"  Source="{Binding BildURL}" Height="60" Width="60"/>
+                        <TextBlock Grid.Column="1" FontSize="14" FontWeight="Bold" Text="{Binding ProductName}" />
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1" Text="{Binding ProductDimension}"/>
+                        </Grid>
+
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="White">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Produktliste" FontSize="18" FontWeight="Bold"/>
+            <ListBox Grid.Row="1"
+         ItemsSource="{Binding newProductTile}" 
+         ItemTemplate="{StaticResource ProductTemplate}"
+         SelectedItem="{Binding Path=SelectedProduct, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                Mode=TwoWay}"
+         d:ItemsSource="{d:SampleData ItemCount=5}"
+         SelectedIndex="0"
+         ScrollViewer.VerticalScrollBarVisibility="Visible">
+
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Image Grid.Row="0" Margin="10"  Source="{Binding SelectedProduct.BildURL}" />
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Image Grid.Row="0" Margin="10" Source="{Binding SelectedProduct.BildURL2}" />
+                </Grid>
+
+                <Button Grid.Column="1" Content="X" Command="{Binding ExecuteDetailProductCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" />
+                
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin=" 0 15 0 0">
+                    <StackPanel Grid.Column="0" VerticalAlignment="Top" >
+                        <StackPanel Orientation="Horizontal" >
+                            <Label Content="Produktfamilie:" Width="100" />
+                            <TextBlock Text="{Binding SelectedProduct.ProductFamily}" VerticalAlignment="Center"  Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Einsatzbereiche:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.ApplicationPlace}"  VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Montageort:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.Installation}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Montageart:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.MountingType}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Abmessungen:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.ProductDimension}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Form:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.Form}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Verstellbarkeit:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.Adjustability}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Lichtstrom:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.LumFlux}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Leistung:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.Performance}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Lichtausbeute:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.LightYield}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Farbwiedergabei.:" Width="100"/>
+                            <TextBlock Text="{Binding SelectedProduct.ColorRenderingIndex}" VerticalAlignment="Center" Width="140" />
+                        </StackPanel>
+                    </StackPanel>
+                  
+                </Grid>
+                <Grid Grid.Column="1" Margin=" 0 15 0 0">
+                    <StackPanel Grid.Row="2" VerticalAlignment="Top">
+                        <Label Content="Produktinformationen:" />
+                        <TextBlock Text="{Binding SelectedProduct.MoreInformation}" Height="200" Margin="5" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <Button Content="Bearbeiten" Command="{Binding ChangeProductInfoViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 35 15"/>
+                </Grid>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</UserControl>

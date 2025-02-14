@@ -99,11 +99,14 @@ namespace Produktkatalog.ViewModel
         }
 
         public ProductTilesViewModel(ObservableCollection<Product> newProductsAsParameter)
-        {           
+        {
+
+            
+            this.SelectedProduct= newProductsAsParameter.First();
             newProductTile = newProductsAsParameter;
             OnDeleteProductCommand = new RelayCommand(param => { DeleteProduct((int)param); });
             //DetailViewCommand = new RelayCommand(param => {InvokeChange();});
-            LoadProducts();
+            //LoadProducts();
             //DetailViewCommand = new RelayCommand(_ => InvokeChange());
             DetailViewCommand = new RelayCommandTwo<Product>(OpenDetailView);
 
